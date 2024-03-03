@@ -40,8 +40,11 @@ namespace demo_azure_deployment.Config
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
-            optionsBuilder.UseMySQL(connectionString!);
+            IConfiguration config = new ConfigurationBuilder()
+                //.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            optionsBuilder.UseMySQL(config.GetConnectionString("AppDbMySql"));
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
