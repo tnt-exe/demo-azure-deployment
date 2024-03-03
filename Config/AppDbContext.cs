@@ -40,7 +40,8 @@ namespace demo_azure_deployment.Config
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=sql6.freemysqlhosting.net;database=sql6688352;uid=sql6688352;pwd=MdxsLIgPHB;");
+            var connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
+            optionsBuilder.UseMySQL(connectionString!);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
