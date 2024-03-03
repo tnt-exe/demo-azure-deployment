@@ -23,12 +23,24 @@ namespace demo_azure_deployment.Config
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.CreatedTime)
+                    .IsRequired()
+                    .HasColumnType("datetime");
             });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=DemoAzure;uid=sa;pwd=12345;TrustServerCertificate=true");
+            optionsBuilder.UseMySQL("server=sql6.freemysqlhosting.net;database=sql6688352;uid=sql6688352;pwd=MdxsLIgPHB;");
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
