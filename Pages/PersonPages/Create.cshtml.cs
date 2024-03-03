@@ -24,7 +24,7 @@ namespace demo_azure_deployment.Pages.PersonPages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.People == null || Person == null)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
