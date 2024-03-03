@@ -49,7 +49,7 @@ namespace demo_azure_deployment.Config
             {
                 if (entry.State is EntityState.Added && entry.Entity is BaseProp entity)
                 {
-                    entity.CreatedTime = DateTime.Now;
+                    entity.CreatedTime = DateTime.UtcNow;
                 }
             }
 
