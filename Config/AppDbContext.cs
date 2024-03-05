@@ -5,8 +5,10 @@ namespace demo_azure_deployment.Config
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext() : base()
+        private IConfiguration _config;
+        public AppDbContext(IConfiguration config) : base()
         {
+            _config = config;
         }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -40,11 +42,10 @@ namespace demo_azure_deployment.Config
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfiguration config = new ConfigurationBuilder()
-                //.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
-
-            optionsBuilder.UseMySQL(config.GetConnectionString("AppDbMySql"));
+            IConfigurationRoot config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+            optionsBuilder.UseMySQL(config.GetConnectionString("DefaultConnection"));
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
