@@ -4,13 +4,25 @@ namespace demo_azure_deployment.Pages
 {
     public class IndexModel : PageModel
     {
-        public IndexModel()
+        private readonly IConfiguration config;
+
+        public IndexModel(IConfiguration config)
         {
+            this.config = config;
         }
+
+        public string? ConStr { get; set; }
+        public string? AppVal1 { get; set; }
+        public string? AppVal2 { get; set; }
+        public string? AppVal3 { get; set; }
 
         public void OnGet()
         {
-            // Method intentionally left empty.
+            ConStr = config.GetConnectionString("AppDbMySql");
+            AppVal1 = config["AppVal1"];
+            AppVal2 = config.GetSection("AppVal2").Value;
+            AppVal3 = config.GetValue<string>("AppVal3");
+
         }
     }
 }
