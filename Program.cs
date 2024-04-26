@@ -14,7 +14,7 @@ namespace demo_azure_deployment
 
             var app = builder.Build();
 
-            if (!app.Environment.IsDevelopment())
+            if (!app.Environment.IsDevelopment() || !app.Environment.IsStaging())
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
